@@ -3,3 +3,4 @@ variable "application_name" {
   description = "Application Name"
   default     = "beacon"
 }
+
