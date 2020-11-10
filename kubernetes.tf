@@ -67,3 +67,7 @@ resource "kubernetes_service" "beacon" {
     type = "LoadBalancer"
   }
 }
+
+output "beacon_endpoint" {
+  value = kubernetes_service.beacon.load_balancer_ingress
+}
