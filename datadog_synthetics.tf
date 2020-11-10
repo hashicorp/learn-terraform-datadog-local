@@ -4,7 +4,7 @@ resource "datadog_synthetics_test" "beacon" {
 
   request = {
     method = "GET"
-    url    = "https://${kubernetes_service.beacon.load_balancer_ingress[0].hostname}:8080"
+    url    = "http://${kubernetes_service.beacon.load_balancer_ingress[0].hostname}:8080"
   }
 
   assertion {
@@ -13,7 +13,7 @@ resource "datadog_synthetics_test" "beacon" {
     target   = "200"
   }
 
-  locations = ["aws:us-west-2"]
+  locations = ["aws:us-east-2"]
   options_list {
     tick_every          = 900
     min_location_failed = 1

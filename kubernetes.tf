@@ -86,5 +86,5 @@ resource "kubernetes_service" "beacon" {
 }
 
 output "beacon_endpoint" {
-  value = kubernetes_service.beacon.load_balancer_ingress
+  value = "${kubernetes_service.beacon.load_balancer_ingress[0].hostname}:8080"
 }
