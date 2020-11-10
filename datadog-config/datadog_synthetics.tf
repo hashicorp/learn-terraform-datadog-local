@@ -4,7 +4,7 @@ resource "datadog_synthetics_test" "beacon" {
 
   request = {
     method = "GET"
-    url    = "https://${kubernetes_service.beacon.load_balancer_ingress[0].hostname}:8080"
+    url    = "http://${kubernetes_service.beacon.load_balancer_ingress[0].hostname}:8080"
   }
 
   assertion {
