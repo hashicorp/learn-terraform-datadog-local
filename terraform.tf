@@ -2,20 +2,24 @@ terraform {
   required_providers {
     datadog = {
       source  = "datadog/datadog"
-      version = "~> 2.16.0"
+      version = "~> 2.24.0"
     }
     helm = {
       source  = "hashicorp/helm"
-      version = "~> 1.3.2"
+      version = "~> 2.0.3"
     }
     kubernetes = {
       source  = "hashicorp/kubernetes"
-      version = "~> 1.13.3"
+      version = "~> 2.0.3"
     }
     aws = {
       source  = "hashicorp/aws"
-      version = "~> 3.14"
+      version = "~> 3.34"
     }
   }
-  required_version = "~> 0.13.5"
+  required_version = "~> 0.13"
+}
+
+provider "aws" {
+  region = "us-east-2"
 }
