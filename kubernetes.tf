@@ -20,11 +20,18 @@ data "aws_eks_cluster_auth" "cluster" {
 }
 
 provider "kubernetes" {
-  load_config_file = "false"
-  host             = data.aws_eks_cluster.cluster.endpoint
-  token            = data.aws_eks_cluster_auth.cluster.token
-
+  host                   = data.aws_eks_cluster.cluster.endpoint
   cluster_ca_certificate = base64decode(data.aws_eks_cluster.cluster.certificate_authority.0.data)
+  exec {
+    api_version = "client.authentication.k8s.io/v1alpha1"
+    command     = "aws"
+    args = [
+      "eks",
+      "get-token",
+      "--cluster-name",
+      data.aws_eks_cluster.cluster.name
+    ]
+  }
 }
 
 resource "kubernetes_namespace" "beacon" {
@@ -86,5 +93,5 @@ resource "kubernetes_service" "beacon" {
 }
 
 output "beacon_endpoint" {
-  value = "${kubernetes_service.beacon.load_balancer_ingress[0].hostname}:8080"
+  value = "${kubernetes_service.beacon.status[0].load_balancer[0].ingress[0].hostname}:8080"
 }
