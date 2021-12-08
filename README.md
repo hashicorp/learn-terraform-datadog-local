@@ -1,6 +1,5 @@
-# Learn Terraform - Provision an EKS Cluster and Monitor with Datadog
+# Learn Terraform - Automate Monitoring with the Terraform Datadog Provider
 
 Follow along with the Datadog provider guide on Learn.
 
-This repo is a companion repo to the [Provision an EKS Cluster learn guide](https://learn.hashicorp.com/terraform/kubernetes/provision-eks-cluster), containing
-Terraform configuration files to provision an EKS cluster on AWS.
+This repo is a companion repo to the [Automate Monitoring with the Terraform Datadog Provider Learn guide](https://learn.hashicorp.com/tutorials/terraform/datadog-provider).
