@@ -2,7 +2,7 @@ resource "datadog_synthetics_test" "beacon" {
   type    = "api"
   subtype = "http"
 
-  request = {
+  request_definition {
     method = "GET"
     url    = "http://${kubernetes_service.beacon.load_balancer_ingress[0].hostname}:8080"
   }
@@ -25,3 +25,4 @@ resource "datadog_synthetics_test" "beacon" {
 
   status = "live"
 }
+
