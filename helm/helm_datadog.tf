@@ -1,8 +1,14 @@
+provider "helm" {
+  kubernetes {
+    config_path = "~/.kube/config"
+  }
+}
+
 resource "helm_release" "datadog_agent" {
   name       = "datadog-agent"
   chart      = "datadog"
   repository = "https://helm.datadoghq.com"
-  version    = "2.4.5"
+  version    = "3.7.3"
   namespace  = kubernetes_namespace.beacon.id
 
   set_sensitive {
@@ -41,7 +47,28 @@ resource "helm_release" "datadog_agent" {
   }
 
   set {
-    name  = "datadog.systemProbe.enabled"
+    name  = "networkMonitoring.enabled"
     value = true
   }
+
+  set {
+    name  = "systemProbe.enableTCPQueueLength"
+    value = true
+  }
+
+  set {
+    name  = "systemProbe.enableOOMKill"
+    value = true
+  }
+
+  set {
+    name  = "securityAgent.runtime.enabled"
+    value = true
+  }
+
+  set {
+    name  = "datadog.hostVolumeMountPropagation"
+    value = "HostToContainer"
+  }
 }
+

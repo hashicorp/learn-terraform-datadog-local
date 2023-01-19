@@ -1,9 +1,7 @@
 resource "datadog_dashboard" "beacon" {
-  title        = "Beacon Service"
-  description  = "A Datadog Dashboard for the ${kubernetes_deployment.beacon.metadata[0].name} deployment"
-  layout_type  = "ordered"
-  is_read_only = true
-
+  title       = "Beacon Service"
+  description = "A Datadog Dashboard for the ${kubernetes_deployment.beacon.metadata[0].name} deployment"
+  layout_type = "ordered"
 
   widget {
     hostmap_definition {
@@ -26,15 +24,13 @@ resource "datadog_dashboard" "beacon" {
   }
 
   widget {
-
-
     timeseries_definition {
       show_legend = false
       title       = "CPU Utilization"
 
       request {
         display_type = "line"
-        q            = "top(avg:docker.cpu.usage{image_name:onlydole/beacon} by {docker_image,container_id}, 10, 'mean', 'desc')"
+        q            = "top(avg:kubernetes.cpu.usage.total{image_name:onlydole/beacon} by {short_image,container_id}, 10, 'mean', 'desc')"
 
         style {
           line_type  = "solid"
@@ -51,15 +47,15 @@ resource "datadog_dashboard" "beacon" {
       }
     }
   }
+
   widget {
-
-
     alert_graph_definition {
       alert_id = datadog_monitor.beacon.id
       title    = "Kubernetes Node CPU"
       viz_type = "timeseries"
     }
   }
+
   widget {
     hostmap_definition {
       no_group_hosts  = true
@@ -86,7 +82,7 @@ resource "datadog_dashboard" "beacon" {
       title       = "Memory Utilization"
       request {
         display_type = "line"
-        q            = "top(avg:docker.mem.in_use{image_name:onlydole/beacon} by {container_name}, 10, 'mean', 'desc')"
+        q            = "top(avg:kubernetes.memory.usage{image_name:onlydole/beacon} by {container_name}, 10, 'mean', 'desc')"
 
         style {
           line_type  = "solid"
@@ -103,3 +99,4 @@ resource "datadog_dashboard" "beacon" {
     }
   }
 }
+
