@@ -16,6 +16,11 @@ terraform {
       source  = "hashicorp/aws"
       version = "~> 4.50.0"
     }
+
+    tfe = {
+      source = "hashicorp/tfe"
+      version = "~> 0.42.0"
+    }
   }
   required_version = ">= 1.1.0"
 }
