@@ -21,9 +21,10 @@ data "terraform_remote_state" "eks" {
 
 # Retrieve EKS cluster configuration
 data "aws_eks_cluster" "cluster" {
-  // Uncomment when using Terraform OSS
-  //name = data.terraform_remote_state.eks.outputs.cluster_name
-  
+  /* Uncomment when using Terraform OSS
+  name = data.terraform_remote_state.eks.outputs.cluster_name
+  */
+
   // Remove when using Terraform OSS
   name = data.tfe_outputs.eks.values.cluster_name
 }
