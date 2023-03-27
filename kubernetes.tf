@@ -2,6 +2,13 @@
 # # https://learn.hashicorp.com/terraform/kubernetes/provision-eks-cluster#optional-configure-terraform-kubernetes-provider
 # # To learn how to schedule deployments and services using the provider, go here: https://learn.hashicorp.com/terraform/kubernetes/deploy-nginx-kubernetes
 
+// Remove when using Terraform OSS
+data "tfe_outputs" "eks" {
+  organization = var.tfc_org
+  workspace = var.tfc_workspace
+}
+
+/* Uncomment when using Terraform OSS
 data "terraform_remote_state" "eks" {
   backend = "local"
 
@@ -9,10 +16,17 @@ data "terraform_remote_state" "eks" {
     path = "../learn-terraform-provision-eks-cluster/terraform.tfstate"
   }
 }
+*/
+
 
 # Retrieve EKS cluster configuration
 data "aws_eks_cluster" "cluster" {
+  /* Uncomment when using Terraform OSS
   name = data.terraform_remote_state.eks.outputs.cluster_name
+  */
+
+  // Remove when using Terraform OSS
+  name = data.tfe_outputs.eks.values.cluster_name
 }
 
 provider "kubernetes" {
