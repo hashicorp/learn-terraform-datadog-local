@@ -1,3 +1,6 @@
+# Copyright (c) HashiCorp, Inc.
+# SPDX-License-Identifier: MPL-2.0
+
 provider "datadog" {
   api_key = var.datadog_api_key
   app_key = var.datadog_app_key
